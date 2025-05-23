@@ -27,35 +27,54 @@
             <h2>Conceptos Matemáticos</h2>
             
             <div class="concepto">
-                <h3>Permutaciones</h3>
-                <p>Una permutación es un arreglo de todos los miembros de un conjunto en algún orden secuencial.</p>
+                <h3>Permutaciones <span class="badge">Orden Importa</span></h3>
+                <p>Una permutación es un arreglo de todos los miembros de un conjunto en algún orden secuencial. El orden de los elementos importa.</p>
                 <div class="formula">
                     $P(n) = n! = n \times (n-1) \times (n-2) \times \dots \times 1$
                 </div>
                 <div class="ejemplo">
                     <h4>Ejemplo Cotidiano:</h4>
-                    <p>Si tienes 3 letras (A, B, C), hay 3! = 6 permutaciones posibles: ABC, ACB, BAC, BCA, CAB, CBA.</p>
+                    <p>Si tienes 3 letras (A, B, C), hay 3! = 6 permutaciones posibles:<br>
+                    ABC, ACB, BAC, BCA, CAB, CBA</p>
+                    <div class="ejemplo-musical" id="ejemploPermutacion">
+                        <h5>Ejemplo Musical:</h5>
+                        <div class="notas-ejemplo" id="notasPermutacion"></div>
+                        <div class="permutaciones-ejemplo" id="permutacionesEjemplo"></div>
+                    </div>
                 </div>
-                <button onclick="generarEjemplo('permutacion')" class="disabled" disabled>Generar Ejemplo Musical</button>
+                <button onclick="generarEjemplo('permutacion')" class="disabled" disabled>Generar Ejemplo de Permutación</button>
             </div>
 
             <div class="concepto">
-                <h3>Combinaciones</h3>
+                <h3>Combinaciones <span class="badge">Orden No Importa</span></h3>
                 <p>Una combinación es una selección de elementos de un conjunto donde el orden no importa.</p>
                 <div class="formula">
                     $C(n, k) = \frac{n!}{k!(n-k)!}$
                 </div>
                 <div class="ejemplo">
                     <h4>Ejemplo Cotidiano:</h4>
-                    <p>Si tienes 5 notas musicales y quieres elegir 3 para un acorde, hay C(5,3) = 10 combinaciones posibles.</p>
+                    <p>Si tienes 5 notas musicales y quieres elegir 3 para un acorde, hay C(5,3) = 10 combinaciones posibles. El orden no importa, por lo que (C, E, G) es lo mismo que (G, C, E).</p>
+                    <div class="ejemplo-musical" id="ejemploCombinacion">
+                        <div class="combinacion-controls">
+                            <label for="tamanoCombinacion">Tamaño de la combinación (k):</label>
+                            <input type="number" id="tamanoCombinacion" min="2" max="5" value="3" class="number-input">
+                        </div>
+                        <h5>Ejemplo Musical:</h5>
+                        <div class="notas-ejemplo" id="notasCombinacion"></div>
+                        <div class="combinaciones-ejemplo" id="combinacionesEjemplo"></div>
+                    </div>
                 </div>
-                <button onclick="generarEjemplo('combinacion')" class="disabled" disabled>Generar Ejemplo Musical</button>
+                <button onclick="generarEjemplo('combinacion')" class="disabled" disabled>Generar Ejemplo de Combinación</button>
             </div>
         </section>
 
         <section id="ejercicio">
             <h2>Generador Musical</h2>
             <div class="controls">
+                <div class="control-group">
+                    <label for="cantidadNotas">Cantidad de notas:</label>
+                    <input type="number" id="cantidadNotas" min="2" max="8" value="4" class="number-input">
+                </div>
                 <button id="generarNotas" class="disabled" disabled>Generar Notas Aleatorias</button>
                 <button id="reproducirOriginal" class="disabled" disabled>Reproducir Original</button>
             </div>

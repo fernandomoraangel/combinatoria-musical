@@ -62,6 +62,18 @@ h3 {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
+.badge {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7em;
+    vertical-align: middle;
+    margin-left: 10px;
+    font-weight: normal;
+}
+
 .formula {
     background-color: #f8f9fa;
     padding: 15px;
@@ -69,6 +81,134 @@ h3 {
     border-left: 4px solid var(--accent-color);
     font-family: 'Courier New', monospace;
     overflow-x: auto;
+}
+
+.ejemplo-musical {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: #f5f7ff;
+    border-radius: 6px;
+    border-left: 3px solid var(--secondary-color);
+}
+
+.ejemplo-musical h5 {
+    margin: 10px 0 8px;
+    color: var(--primary-color);
+}
+
+.notas-ejemplo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.permutaciones-ejemplo,
+.combinaciones-ejemplo {
+    margin-top: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 5px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #e1e5ee;
+}
+
+.combinacion-controls {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.combinacion-controls label {
+    font-size: 0.9em;
+    color: #555;
+    white-space: nowrap;
+}
+
+.combinacion-controls .number-input {
+    width: 60px;
+    padding: 5px 8px;
+}
+
+/* Estilos para los botones de reproducción */
+.boton-reproducir, 
+.boton-notas,
+.boton-nota {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s;
+    vertical-align: middle;
+}
+
+.boton-reproducir:hover,
+.boton-notas:hover,
+.boton-notas:focus,
+.boton-notas:active,
+.boton-nota:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.boton-notas {
+    background-color: #f8f9fa;
+    margin-left: 5px;
+}
+
+.boton-nota {
+    margin: 0 2px;
+    padding: 2px 6px;
+    background-color: #f0f7ff;
+    border-color: #cce0ff;
+}
+
+/* Mejoras para la visualización de permutaciones y combinaciones */
+.permutaciones-ejemplo,
+.combinaciones-ejemplo {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    border: 1px solid #e1e5ee;
+    margin-top: 10px;
+}
+
+.permutaciones-ejemplo li,
+.combinaciones-ejemplo li {
+    padding: 8px 12px;
+    margin: 4px 0;
+    background-color: white;
+    border-radius: 4px;
+    border-left: 3px solid var(--accent-color);
+    transition: all 0.2s;
+}
+
+.permutaciones-ejemplo li:hover,
+.combinaciones-ejemplo li:hover {
+    background-color: #f5f9ff;
+    transform: translateX(2px);
+}
+
+/* Mejoras para pantallas pequeñas */
+@media (max-width: 768px) {
+    .permutaciones-ejemplo,
+    .combinaciones-ejemplo {
+        max-height: 200px;
+    }
+    
+    .boton-reproducir,
+    .boton-notas,
+    .boton-nota {
+        padding: 1px 6px;
+        font-size: 0.8em;
+    }
 }
 
 .ejemplo {
@@ -166,8 +306,35 @@ button:hover {
 .controls {
     margin: 20px 0;
     display: flex;
-    gap: 10px;
+    gap: 15px;
     flex-wrap: wrap;
+    align-items: center;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.control-group label {
+    font-size: 0.9em;
+    margin-bottom: 4px;
+    color: #555;
+}
+
+.number-input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 80px;
+    font-size: 1em;
+}
+
+.number-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
 }
 
 .permutaciones-container {
