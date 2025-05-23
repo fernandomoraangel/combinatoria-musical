@@ -145,6 +145,50 @@
                 </ul>
             </div>
         </section>
+
+        <section id="poesia-fonetica">
+            <h2>Generador de Poesía Fonética</h2>
+            <div class="concepto">
+                <p>Este generador crea poemas fonéticos a partir de permutaciones de conjuntos de palabras. Las palabras se seleccionan por sus cualidades sonoras más que por su significado literal.</p>
+                
+                <div class="controles-poema">
+                    <div class="control-grupo">
+                        <label for="tipoElemento">Tipo de elemento:</label>
+                        <div class="toggle-switch">
+                            <input type="radio" id="tipoPalabras" name="tipoElemento" value="palabras" checked>
+                            <label for="tipoPalabras">Palabras</label>
+                            <input type="radio" id="tipoFonemas" name="tipoElemento" value="fonemas">
+                            <label for="tipoFonemas">Fonemas</label>
+                        </div>
+                    </div>
+                    
+                    <div class="control-grupo">
+                        <label for="numElementos">Elementos por conjunto:</label>
+                        <input type="number" id="numElementos" min="2" max="6" value="4" class="number-input">
+                    </div>
+                    
+                    <div class="control-grupo">
+                        <label for="numConjuntos">Número de conjuntos:</label>
+                        <input type="number" id="numConjuntos" min="1" max="5" value="3" class="number-input">
+                    </div>
+                    
+                    <button id="generarPoema" class="btn-primario">Generar Poema</button>
+                </div>
+                
+                <div class="contenedor-palabras" id="palabrasSeleccionadas">
+                    <!-- Aquí se mostrarán las palabras seleccionadas -->
+                </div>
+                
+                <div class="contenedor-poema" id="poemaGenerado">
+                    <!-- Aquí se generará el poema -->
+                </div>
+                
+                <div class="info-poetica">
+                    <h4>Acerca de la poesía fonética:</h4>
+                    <p>La poesía fonética explora los sonidos del lenguaje como elemento central. Artistas como Hugo Ball, Kurt Schwitters y el movimiento Dadaísta utilizaron técnicas similares para crear obras que priorizan el sonido sobre el significado convencional.</p>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script src="app.js"></script>

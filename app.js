@@ -10,6 +10,8 @@ const generarNotasBtn = document.getElementById('generarNotas');
 const reproducirOriginalBtn = document.getElementById('reproducirOriginal');
 const notasOriginalesDiv = document.getElementById('notasOriginales');
 const permutacionesDiv = document.getElementById('permutaciones');
+const generarPoesiaBtn = document.getElementById('generarPoesia');
+const poesiaDiv = document.getElementById('poesia');
 
 // Inicializar el contexto de audio
 document.addEventListener('DOMContentLoaded', () => {
@@ -362,6 +364,226 @@ function generarEjemplo(tipo) {
             `Ejemplo Musical (${combinaciones.length} combinaciones de ${k} notas de ${notasEjemplo.length}):`;
     }
 }
+
+// ===========================================
+// GENERADOR DE POESÍA FONÉTICA
+// ===========================================
+
+// Banco de palabras para el generador de poesía
+const palabrasFoneticas = [
+    // Palabras con sonidos suaves
+    'luna', 'suave', 'viento', 'bruma', 'sueño', 'pluma', 'niebla', 'beso', 'risa', 'lluvia',
+    'luz', 'mar', 'flor', 'paz', 'voz', 'piel', 'dulce', 'abrazo', 'silencio', 'vuelo',
+    
+    // Palabras con sonidos fuertes
+    'trueno', 'fuego', 'grito', 'roca', 'tormenta', 'metal', 'golpe', 'furia', 'rojo', 'fuerte',
+    'hierro', 'piedra', 'garganta', 'choque', 'temblor', 'estruendo', 'fractura', 'golpear', 'romper',
+    
+    // Palabras con sonidos líquidos
+    'lágrima', 'río', 'llorar', 'brillar', 'espejo', 'reflejo', 'llama', 'lleno', 'brillo',
+    'lentitud', 'luminoso', 'llovizna', 'brisa', 'lucir', 'llave',
+    
+    // Palabras con sonidos nasales
+    'canción', 'manzana', 'monte', 'mano', 'menta', 'moneda', 'monje', 'manta', 'mente', 'mono',
+    'nido', 'nube', 'nieve', 'noche', 'nuez', 'nacer', 'nave'
+];
+
+// Banco de fonemas en español
+const fonemasEspanol = [
+    // Vocales
+    'a', 'e', 'i', 'o', 'u',
+    
+    // Consonantes oclusivas
+    'p', 'b', 't', 'd', 'k', 'g',
+    
+    // Consonantes fricativas
+    'f', 's', 'x', 'y', 'j', 'g',
+    
+    // Consonantes africadas
+    'ch', 'll', 'ñ',
+    
+    // Consonantes nasales
+    'm', 'n', 'ñ',
+    
+    // Consonantes líquidas
+    'l', 'r', 'rr',
+    
+    // Grupos consonánticos
+    'bl', 'br', 'cl', 'cr', 'dr', 'fl', 'fr', 'gl', 'gr', 'pl', 'pr', 'tr',
+    
+    // Diptongos
+    'ai', 'ei', 'oi', 'ui', 'au', 'eu', 'ou', 'ia', 'ie', 'io', 'iu', 'ua', 'ue', 'uo',
+    
+    // Triptongos
+    'iai', 'iei', 'uai', 'uei', 'uay', 'uey', 'iau', 'ieu'
+];
+
+// Obtener el tipo de elemento seleccionado (palabras o fonemas)
+function obtenerTipoElemento() {
+    return document.querySelector('input[name="tipoElemento"]:checked').value;
+}
+
+// Obtener el banco de elementos según el tipo seleccionado
+function obtenerBancoElementos() {
+    return obtenerTipoElemento() === 'palabras' ? palabrasFoneticas : fonemasEspanol;
+}
+
+// Obtener la etiqueta para mostrar según el tipo de elemento
+function obtenerEtiquetaElemento() {
+    return obtenerTipoElemento() === 'palabras' ? 'Palabra' : 'Fonema';
+}
+
+// Estructuras de versos
+const estructurasSilabicas = [
+    "x x x x x",
+    "x x x x",
+    "x x x",
+    "x x",
+    "x",
+    "x x x x x x",
+    "x x x x x x x"
+];
+
+// Función para generar un conjunto aleatorio de elementos (palabras o fonemas)
+function generarConjuntoElementos(cantidad) {
+    const conjunto = [];
+    const elementosDisponibles = [...obtenerBancoElementos()];
+    
+    for (let i = 0; i < cantidad && elementosDisponibles.length > 0; i++) {
+        const indice = Math.floor(Math.random() * elementosDisponibles.length);
+        conjunto.push(elementosDisponibles.splice(indice, 1)[0]);
+    }
+    
+    return conjunto;
+}
+
+// Función para generar permutaciones para la poesía
+function generarPermutacionesPoesia(arr) {
+    if (arr.length <= 1) return [arr];
+    if (arr.length === 2) return [[arr[0], arr[1]], [arr[1], arr[0]]];
+    
+    return arr.reduce((acc, item, i) => {
+        const permutacionesRestantes = generarPermutacionesPoesia([...arr.slice(0, i), ...arr.slice(i + 1)]);
+        return acc.concat(permutacionesRestantes.map(perm => [item, ...perm]));
+    }, []);
+}
+
+// Función para generar un poema fonético
+function generarPoemaFonetico() {
+    const numElementos = parseInt(document.getElementById('numElementos').value);
+    const numConjuntos = parseInt(document.getElementById('numConjuntos').value);
+    const tipoElemento = obtenerTipoElemento();
+    const etiquetaElemento = obtenerEtiquetaElemento();
+    
+    if (numElementos < 2 || numElementos > 6) {
+        alert(`El número de ${tipoElemento === 'palabras' ? 'palabras' : 'fonemas'} por conjunto debe estar entre 2 y 6`);
+        return;
+    }
+    
+    if (numConjuntos < 1 || numConjuntos > 5) {
+        alert('El número de conjuntos debe estar entre 1 y 5');
+        return;
+    }
+    
+    const contenedorElementos = document.getElementById('palabrasSeleccionadas');
+    const contenedorPoema = document.getElementById('poemaGenerado');
+    
+    contenedorElementos.innerHTML = `<h4>${etiquetaElemento}s seleccionados:</h4><div class="lista-palabras" id="listaElementos"></div>`;
+    contenedorPoema.innerHTML = '';
+    
+    const listaElementos = document.getElementById('listaElementos');
+    
+    // Generar conjuntos de elementos (palabras o fonemas)
+    for (let i = 0; i < numConjuntos; i++) {
+        const elementos = generarConjuntoElementos(numElementos);
+        
+        // Mostrar elementos seleccionados
+        elementos.forEach((elemento, index) => {
+            const span = document.createElement('span');
+            span.className = 'palabra';
+            span.textContent = elemento;
+            
+            // Para fonemas, hacer que se vean más pequeños
+            if (tipoElemento === 'fonemas') {
+                span.classList.add('fonema');
+            }
+            
+            listaElementos.appendChild(span);
+            
+            // Agregar espacio entre elementos
+            if (index < elementos.length - 1) {
+                listaElementos.appendChild(document.createTextNode(' '));
+            }
+        });
+        
+        // Agregar separador entre conjuntos
+        if (i < numConjuntos - 1) {
+            listaElementos.appendChild(document.createElement('br'));
+            listaElementos.appendChild(document.createElement('br'));
+        }
+        
+        // Generar permutaciones para el poema
+        const permutaciones = generarPermutacionesPoesia(elementos);
+        
+        // Seleccionar algunas permutaciones para el poema
+        const numVersos = Math.min(3, permutaciones.length);
+        const versosSeleccionados = [];
+        
+        while (versosSeleccionados.length < numVersos && permutaciones.length > 0) {
+            const indice = Math.floor(Math.random() * permutaciones.length);
+            const verso = permutaciones.splice(indice, 1)[0].join(' ');
+            if (!versosSeleccionados.includes(verso)) {
+                versosSeleccionados.push(verso);
+            }
+        }
+        
+        // Mostrar los versos en el poema
+        versosSeleccionados.forEach((verso, index) => {
+            const divVerso = document.createElement('div');
+            divVerso.className = 'verso';
+            
+            // Aplicar estructura silábica aleatoria (solo para palabras)
+            if (tipoElemento === 'palabras') {
+                const estructura = estructurasSilabicas[Math.floor(Math.random() * estructurasSilabicas.length)];
+                const elementosVerso = verso.split(' ');
+                let versoEstructurado = '';
+                let elementoIndex = 0;
+                
+                for (let i = 0; i < estructura.length && elementoIndex < elementosVerso.length; i++) {
+                    if (estructura[i] === 'x') {
+                        versoEstructurado += elementosVerso[elementoIndex] + ' ';
+                        elementoIndex++;
+                    } else {
+                        versoEstructurado += estructura[i];
+                    }
+                }
+                divVerso.textContent = versoEstructurado.trim();
+            } else {
+                // Para fonemas, mostrarlos sin estructura silábica
+                divVerso.textContent = verso;
+                divVerso.classList.add('verso-fonemas');
+            }
+            
+            contenedorPoema.appendChild(divVerso);
+        });
+        
+        // Agregar espacio entre estrofas
+        if (i < numConjuntos - 1) {
+            contenedorPoema.appendChild(document.createElement('br'));
+        }
+    }
+}
+
+// Inicializar el generador de poesía cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    const generarPoemaBtn = document.getElementById('generarPoema');
+    if (generarPoemaBtn) {
+        generarPoemaBtn.addEventListener('click', generarPoemaFonetico);
+        
+        // Generar un poema inicial
+        setTimeout(generarPoemaFonetico, 500);
+    }
+});
 
 // Manejar cambios en el tamaño de combinación
 document.getElementById('tamanoCombinacion')?.addEventListener('change', (e) => {
