@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combinatoria Musical</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script>
+        MathJax.Hub.Config({
+            tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] },
+            displayAlign: "left"
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Combinatoria Musical</h1>
+            <p>Explora las matemáticas de la música a través de la combinatoria</p>
+            <button id="iniciarAudio" class="start-button">Iniciar Audio</button>
+            <div id="audioStatus" class="audio-status">Audio no inicializado</div>
+        </header>
+
+        <section id="conceptos">
+            <h2>Conceptos Matemáticos</h2>
+            
+            <div class="concepto">
+                <h3>Permutaciones</h3>
+                <p>Una permutación es un arreglo de todos los miembros de un conjunto en algún orden secuencial.</p>
+                <div class="formula">
+                    $P(n) = n! = n \times (n-1) \times (n-2) \times \dots \times 1$
+                </div>
+                <div class="ejemplo">
+                    <h4>Ejemplo Cotidiano:</h4>
+                    <p>Si tienes 3 letras (A, B, C), hay 3! = 6 permutaciones posibles: ABC, ACB, BAC, BCA, CAB, CBA.</p>
+                </div>
+                <button onclick="generarEjemplo('permutacion')" class="disabled" disabled>Generar Ejemplo Musical</button>
+            </div>
+
+            <div class="concepto">
+                <h3>Combinaciones</h3>
+                <p>Una combinación es una selección de elementos de un conjunto donde el orden no importa.</p>
+                <div class="formula">
+                    $C(n, k) = \frac{n!}{k!(n-k)!}$
+                </div>
+                <div class="ejemplo">
+                    <h4>Ejemplo Cotidiano:</h4>
+                    <p>Si tienes 5 notas musicales y quieres elegir 3 para un acorde, hay C(5,3) = 10 combinaciones posibles.</p>
+                </div>
+                <button onclick="generarEjemplo('combinacion')" class="disabled" disabled>Generar Ejemplo Musical</button>
+            </div>
+        </section>
+
+        <section id="ejercicio">
+            <h2>Generador Musical</h2>
+            <div class="controls">
+                <button id="generarNotas" class="disabled" disabled>Generar Notas Aleatorias</button>
+                <button id="reproducirOriginal" class="disabled" disabled>Reproducir Original</button>
+            </div>
+            <div class="notas-container">
+                <h3>Secuencia Original:</h3>
+                <div id="notasOriginales" class="notas"></div>
+            </div>
+            <div class="permutaciones-container">
+                <h3>Variaciones:</h3>
+                <div id="permutaciones" class="permutaciones"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
