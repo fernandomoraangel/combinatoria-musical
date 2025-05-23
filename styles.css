@@ -196,6 +196,52 @@ h3 {
     transform: translateX(2px);
 }
 
+/* Estilos para la sección histórica */
+#historia h2 {
+    color: var(--primary-color);
+    margin: 40px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--light-gray);
+}
+
+#historia h3 {
+    color: var(--secondary-color);
+    margin: 30px 0 15px;
+    font-size: 1.3em;
+}
+
+#historia h4 {
+    color: var(--accent-color);
+    margin: 25px 0 10px;
+    font-size: 1.1em;
+}
+
+#historia p {
+    margin: 10px 0;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+#historia ul {
+    margin: 15px 0 15px 20px;
+    padding-left: 15px;
+}
+
+#historia li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+/* Estilos para las citas y ejemplos */
+.cita {
+    font-style: italic;
+    border-left: 3px solid var(--accent-color);
+    padding: 10px 15px;
+    margin: 15px 0;
+    background-color: #f9f9f9;
+    color: #555;
+}
+
 /* Mejoras para pantallas pequeñas */
 @media (max-width: 768px) {
     .permutaciones-ejemplo,
